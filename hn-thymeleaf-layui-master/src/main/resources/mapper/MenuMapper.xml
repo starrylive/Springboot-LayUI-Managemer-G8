@@ -27,6 +27,11 @@
     from tbl_menu
     where menu_id = #{menuId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAllMenu" resultMap="BaseResultMap">
+      select * from tbl_menu
+
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_menu
     where menu_id = #{menuId,jdbcType=INTEGER}
@@ -43,6 +48,8 @@
       #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
+
+
   <insert id="insertSelective" parameterType="com.aaa.entity.Menu">
     insert into tbl_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">

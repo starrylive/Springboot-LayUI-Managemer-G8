@@ -1,7 +1,9 @@
 package com.aaa.dao;
 
 import com.aaa.entity.UserAndRoleKey;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface UserAndRoleMapper {
     int deleteByPrimaryKey(UserAndRoleKey key);
 
