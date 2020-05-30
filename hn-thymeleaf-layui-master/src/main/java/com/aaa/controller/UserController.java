@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.aaa.entity.User;
 import java.util.*;
 
 /**
@@ -24,16 +24,16 @@ public class UserController {
     @Autowired
     private UserBiz userBizImpl;
 
-    @RequestMapping("/toShowUserLayui")
-    public String toShowUserLayui() {
-        return "user/showUserLayui";
+    @RequestMapping("/toIndex")
+    public String toIndex() {
+        return "index";
     }
 
-    @RequestMapping("/showUserLayui")
+    @RequestMapping("/showUser")
     @ResponseBody
-    public LayUiTable showUserLayui(int page, int limit) {
+    public LayUiTable showUser(int page, int limit) {
         //开始查询
-        PageInfo<MyUserInfo> pageInfo = userBizImpl.selectAllUser(page, limit);
+        PageInfo<User> pageInfo = userBizImpl.selectAllUser(page, limit);
         LayUiTable layUiTable = new LayUiTable();
         layUiTable.setCode(0);
         layUiTable.setMsg("返回消息");

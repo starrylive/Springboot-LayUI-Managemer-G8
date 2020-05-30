@@ -14,15 +14,10 @@
     <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="status" jdbcType="CHAR" property="status" />
     <result column="del_flag" jdbcType="CHAR" property="delFlag" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
     user_id, dept_id, login_name, user_name, email, phonenumber, sex, avatar, password, 
-    salt, status, del_flag, create_by, create_time, update_by, update_time, remark
+    salt, status, del_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,6 +25,16 @@
     from tbl_user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
+
+    <select id="findAllUser" resultMap="BaseResultMap">
+      SELECT <include refid="Base_Column_List" />
+      FROM tbl_user
+    </select>
+  <select id="findDeptNameByDeptId" parameterType="int" resultType="java.lang.String">
+    Select dept_name FROM tbl_dept dt WHERE dt.dept_id = #{value}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_user
     where user_id = #{userId,jdbcType=INTEGER}
@@ -38,15 +43,11 @@
     insert into tbl_user (user_id, dept_id, login_name, 
       user_name, email, phonenumber, 
       sex, avatar, password, 
-      salt, status, del_flag, create_by, 
-      create_time, update_by, update_time, 
-      remark)
+      salt, status, del_flag)
     values (#{userId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, 
       #{userName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, 
       #{sex,jdbcType=CHAR}, #{avatar,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR})
+      #{salt,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.aaa.entity.User">
     insert into tbl_user
@@ -87,21 +88,6 @@
       <if test="delFlag != null">
         del_flag,
       </if>
-      <if test="createBy != null">
-        create_by,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateBy != null">
-        update_by,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -140,23 +126,9 @@
       <if test="delFlag != null">
         #{delFlag,jdbcType=CHAR},
       </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.aaa.entity.User">
     update tbl_user
     <set>
@@ -193,21 +165,6 @@
       <if test="delFlag != null">
         del_flag = #{delFlag,jdbcType=CHAR},
       </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -223,12 +180,7 @@
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
-      del_flag = #{delFlag,jdbcType=CHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
+      del_flag = #{delFlag,jdbcType=CHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

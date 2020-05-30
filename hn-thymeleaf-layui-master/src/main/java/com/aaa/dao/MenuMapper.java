@@ -2,10 +2,11 @@ package com.aaa.dao;
 
 import com.aaa.entity.Menu;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
-import java.util.*;
-
+import java.util.List;
 @Mapper
+@Repository
 public interface MenuMapper {
     int deleteByPrimaryKey(Integer menuId);
 
@@ -18,6 +19,6 @@ public interface MenuMapper {
     int updateByPrimaryKeySelective(Menu record);
 
     int updateByPrimaryKey(Menu record);
-
     List<Menu> selectAllMenu();
+
 }

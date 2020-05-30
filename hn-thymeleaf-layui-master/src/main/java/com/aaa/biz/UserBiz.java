@@ -4,6 +4,7 @@ import com.aaa.entity.MyUserInfo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import com.aaa.entity.User;
 
 /**
  * @Author: 陈建
@@ -13,9 +14,13 @@ import java.util.List;
  */
 public interface UserBiz {
 
-    PageInfo<MyUserInfo> selectAllUser(int page, int limit);
+    PageInfo<User> selectAllUser(int page, int limit);
     MyUserInfo selectUserByUsername(String username);
     int insertSelective(MyUserInfo record);
     int delUserByID(List<String> ids);
     int updateByPrimaryKeySelective(MyUserInfo record);
+
+    String findDeptNameByDeptId(int userId);
+
+    List<User> findAllUser();
 }

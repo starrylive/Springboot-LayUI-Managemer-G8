@@ -2,7 +2,9 @@ package com.aaa.biz.impl;
 
 import com.aaa.biz.UserBiz;
 import com.aaa.dao.MyUserInfoMapper;
+import com.aaa.dao.UserMapper;
 import com.aaa.entity.MyUserInfo;
+import com.aaa.entity.User;
 import com.aaa.shiro.ShiroUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,13 +26,21 @@ public class UserBizImpl  implements UserBiz {
     @Autowired
     private MyUserInfoMapper myUserInfoMapper;
 
+
+    @Autowired
+    private UserMapper userMapper;
+
+/**
+ * 查询用户信息,并且进行分页
+ *
+ * */
     @Override
-    public PageInfo<MyUserInfo> selectAllUser(int page,int limit) {
+    public PageInfo<User> selectAllUser(int page, int limit) {
     //开始分页,第一个参数是当前第几页，第二个参数是一页显示多少行
         PageHelper.startPage(page,limit);
-        List<MyUserInfo> myUserInfos = myUserInfoMapper.selectAllUser();
+        List<User> UserInfos = userMapper.findAllUser();
         //结束分页,pageInfo封装了分页之后所有数据
-        PageInfo<MyUserInfo> pageInfo = new PageInfo(myUserInfos);
+        PageInfo<User> pageInfo = new PageInfo(UserInfos);
         return pageInfo;
 
     }
@@ -64,5 +74,15 @@ public class UserBizImpl  implements UserBiz {
     @Override
     public int updateByPrimaryKeySelective(MyUserInfo record) {
         return myUserInfoMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public String findDeptNameByDeptId(int userId) {
+        return userMapper.findDeptNameByDeptId(userId);
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        return userMapper.findAllUser();
     }
 }

@@ -7,14 +7,9 @@
     <result column="order_num" jdbcType="INTEGER" property="orderNum" />
     <result column="status" jdbcType="CHAR" property="status" />
     <result column="del_flag" jdbcType="CHAR" property="delFlag" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    dept_id, dept_name, order_num, status, del_flag, create_by, create_time, update_by, 
-    update_time
+    dept_id, dept_name, order_num, status, del_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -28,13 +23,9 @@
   </delete>
   <insert id="insert" parameterType="com.aaa.entity.Dept">
     insert into tbl_dept (dept_id, dept_name, order_num, 
-      status, del_flag, create_by, 
-      create_time, update_by, update_time
-      )
+      status, del_flag)
     values (#{deptId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, 
-      #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.aaa.entity.Dept">
     insert into tbl_dept
@@ -54,18 +45,6 @@
       <if test="delFlag != null">
         del_flag,
       </if>
-      <if test="createBy != null">
-        create_by,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateBy != null">
-        update_by,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deptId != null">
@@ -82,18 +61,6 @@
       </if>
       <if test="delFlag != null">
         #{delFlag,jdbcType=CHAR},
-      </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -112,18 +79,6 @@
       <if test="delFlag != null">
         del_flag = #{delFlag,jdbcType=CHAR},
       </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where dept_id = #{deptId,jdbcType=INTEGER}
   </update>
@@ -132,11 +87,7 @@
     set dept_name = #{deptName,jdbcType=VARCHAR},
       order_num = #{orderNum,jdbcType=INTEGER},
       status = #{status,jdbcType=CHAR},
-      del_flag = #{delFlag,jdbcType=CHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      del_flag = #{delFlag,jdbcType=CHAR}
     where dept_id = #{deptId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -24,6 +24,10 @@ public class LoginController {
     public String toLogin(){
         return "login";
     }
+
+    /**
+     * 登陆成功以后的跳转页面,利用Shiro惊醒校验认证
+     * */
     @RequestMapping("/login")
     public String login(String username, String password, Model model){
         //登录验证
@@ -43,6 +47,9 @@ public class LoginController {
             model.addAttribute("message","密码错误");
             return "login";
         }
-        return "user/showUserLayui";
+        return "index";
     }
+
+
+
 }

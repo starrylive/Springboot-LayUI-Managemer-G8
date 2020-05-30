@@ -2,8 +2,10 @@ package com.aaa.dao;
 
 import com.aaa.entity.Dept;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface DeptMapper {
     int deleteByPrimaryKey(Integer deptId);
 
